@@ -9,7 +9,7 @@ BASE_CHR_SRC_NAMES :=	ft_isalnum.c \
 						ft_tolower.c \
 						ft_toupper.c
 
-BASE_CHR_OBJ_NAMES = $(SRC_NAMES:.c=.o)
+BASE_CHR_OBJ_NAMES = $(BASE_CHR_SRC_NAMES:.c=.o)
 
 SRCS += $(addprefix $(SRC_PATH)/base/character/,$(BASE_CHR_SRC_NAMES))
 OBJS += $(addprefix $(OBJ_PATH)/base/character/,$(BASE_CHR_OBJ_NAMES))
