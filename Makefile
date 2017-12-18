@@ -4,7 +4,12 @@ SRC_PATH := srcs
 OBJ_PATH := bin
 INC_PATH := includes
 
-SRCS_NAMES = main.c line_points.c
+SRCS_NAMES =	error.c 		\
+				main.c			\
+				line_points.c	\
+				parse.c			\
+				matrix.c
+
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 
 SRCS = $(addprefix $(SRC_PATH)/, $(SRCS_NAMES))

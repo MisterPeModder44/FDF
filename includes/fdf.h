@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2017/12/14 18:32:54 by yguaye           ###   ########.fr       */
+/*   Updated: 2017/12/18 04:10:01 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,13 @@ typedef struct		s_point
 	int				y;
 }					t_point;
 
-typedef struct		s_point_grid
-{
-	int				width;
-	int				height;
-	t_point			**grid;
-}					t_point_grid;
-
 void				draw_line(t_mlx_context *context, t_point *p1, t_point *p2);
+void				put_point(t_mlx_context *context, t_point *p, int color);
 t_point				*make_point(int x, int y);
+t_point				*set_point(t_point *p, int x, int y);
 void				del_point(t_point **point);
+
+int					return_error(char *s, int r);
+void				exit_error(char *s);
 
 #endif
