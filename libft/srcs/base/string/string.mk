@@ -11,6 +11,7 @@ BASE_STR_SRC_NAMES :=	ft_atoi.c \
 						ft_strdup.c \
 						ft_strequ.c \
 						ft_striter.c \
+						ft_strisnumber.c \
 						ft_striteri.c \
 						ft_strjoin.c \
 						ft_strlcat.c \
