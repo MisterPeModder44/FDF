@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 03:42:34 by yguaye            #+#    #+#             */
-/*   Updated: 2017/12/18 03:53:50 by yguaye           ###   ########.fr       */
+/*   Updated: 2017/12/18 04:50:01 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static int			pml_2(char **vert_data, int *verts)
 	while (vert_data[++x])
 	{
 		if (!ft_strisnumber(vert_data[x]))
-		{
-			ft_strtabdel(&vert_data);
 			return (return_error("fdf: invalid vertex height", 1));
-		}
 		verts[x] = ft_atoi(vert_data[x]);
 	}
 	return (0);

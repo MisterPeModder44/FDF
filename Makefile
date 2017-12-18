@@ -4,10 +4,12 @@ SRC_PATH := srcs
 OBJ_PATH := bin
 INC_PATH := includes
 
-SRCS_NAMES =	error.c 		\
+SRCS_NAMES =	draw.c			\
+				error.c 		\
 				main.c			\
 				line_points.c	\
 				parse.c			\
+				point.c			\
 				matrix.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

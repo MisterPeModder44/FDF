@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 00:25:20 by yguaye            #+#    #+#             */
-/*   Updated: 2017/12/18 03:54:03 by yguaye           ###   ########.fr       */
+/*   Updated: 2017/12/18 05:09:33 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,9 @@ void				delete_matrix(t_matrix **matrix)
 	ft_lstdel(&(*matrix)->verts, &del_mlist);
 	free((*matrix)->verts);
 	ft_memdel((void **)matrix);
+}
+
+int					get_height(t_matrix *matrix, int x, int y)
+{
+	return (((int *)(matrix->verts + y)->content)[x]);
 }

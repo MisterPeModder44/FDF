@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 00:22:30 by yguaye            #+#    #+#             */
-/*   Updated: 2017/12/18 03:43:36 by yguaye           ###   ########.fr       */
+/*   Updated: 2017/12/18 05:09:42 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ typedef struct		s_matrix
 int					parse_matrix_line(char *line, t_matrix *m);
 t_matrix			*read_matrix(char *file);
 void				delete_matrix(t_matrix **matrix);
+int					get_height(t_matrix *matrix, int x, int y);
 
 #endif
