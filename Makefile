@@ -13,7 +13,7 @@ SRCS = $(addprefix $(SRC_PATH)/, $(SRCS_NAMES))
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAMES))
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = --std=c99 -Wall -Werror -Wextra
 FRAMEWORKS = -framework OpenGL -framework AppKit
 CPPFLAGS = -I$(INC_PATH) -Ilibft/includes -I/usr/local/include
 RM = rm -f

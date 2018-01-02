@@ -6,16 +6,17 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2017/12/18 15:41:29 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/02 18:36:39 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "fdf.h"
 #include "libft_base/base.h"
 
-void		quit_fdf(t_mlx_context *ctx, char *reason)
+void		quit_fdf(t_mlx_context *ctx, const char *reason)
 {
 	mlx_destroy_window(ctx->mlx, ctx->win);
 	if (reason)
@@ -29,6 +30,12 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 {
 	if (key == 53)
 		quit_fdf(ctx, NULL);
+	else
+	{
+		ft_putstr("key: ");
+		ft_putnbr(key);
+		ft_putendl("");
+	}
 }
 
 int			main(void)
@@ -41,6 +48,7 @@ int			main(void)
 	ctx.win = mlx_new_window(ctx.mlx, ctx.width, ctx.height, "- Fil De Fer -");
 	ctx.img = NULL;
 	mlx_key_hook(ctx.win, (int (*)())&on_key_released, &ctx);
+	put_fdf_render(&ctx);
 	mlx_loop(ctx.mlx);
 	return (0);
 }

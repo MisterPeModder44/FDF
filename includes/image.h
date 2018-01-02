@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:43:55 by yguaye            #+#    #+#             */
-/*   Updated: 2017/12/18 16:29:10 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/02 16:13:02 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define IMAGE_H
 
 # include <stdint.h>
+# include "fdf.h"
 
 typedef union		u_color
 {
@@ -30,17 +31,25 @@ typedef struct		s_image
 	t_mlx_context	*ctx;
 }					t_image;
 
-# define COLCHAN_A(i, c) (i->endian ? c->bytes : c->bytes + 3)
-# define COLCHAN_R(i, c) (i->endian ? c->bytes + 1 : c->bytes + 2)
-# define COLCHAN_G(i, c) (i->endian ? c->bytes + 2 : c->bytes + 1)
-# define COLCHAN_B(i, c) (i->endian ? c->bytes + 3 : c->bytes)
 
-void				pixel_put(t_image *img, int x, int y, int32_t color)
+int8_t		*colchan_r(t_image *img, t_color *c)
 {
-	int				pos;
-
-	pos = (x + y * img->slen) * 4;
-
+	return (img->endian ? c->bytes + 1 : c->bytes + 2);
 }
+
+int8_t		*colchan_g(t_image *img, t_color *c)
+{
+	return (img->endian ? c->bytes + 2 : c->bytes + 1);
+}
+
+int8_t		*colchan_b(t_image *img, t_color *c)
+{
+	return (img->endian ? c->bytes + 3 : c->bytes);
+}
+
+void				img_pixel_put(t_image *img, const int x, const int y,
+		const t_color *color);
+
+void				getProj(t_image *img);
 
 #endif
