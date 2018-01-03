@@ -4,13 +4,8 @@ SRC_PATH := srcs
 OBJ_PATH := bin
 INC_PATH := includes
 
-SRCS_NAMES =	draw.c			\
-				error.c 		\
+SRCS_NAMES =	image.c			\
 				main.c			\
-				line_points.c	\
-				parse.c			\
-				point.c			\
-				matrix.c
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 
@@ -18,7 +13,7 @@ SRCS = $(addprefix $(SRC_PATH)/, $(SRCS_NAMES))
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAMES))
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = --std=c99 -Wall -Werror -Wextra
 FRAMEWORKS = -framework OpenGL -framework AppKit
 CPPFLAGS = -I$(INC_PATH) -Ilibft/includes -I/usr/local/include
 RM = rm -f
