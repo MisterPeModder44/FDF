@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/03 14:12:04 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/03 18:46:36 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,19 @@ void				img_pixel_put(t_image *img, const int x, const int y,
 	img->data[pos + 1] = color->bytes[1];
 	img->data[pos + 2] = color->bytes[2];
 	img->data[pos + 3] = color->bytes[3];
+}
+
+int8_t				*colchan_r(t_image *img, t_color *c)
+{
+	return (img->endian ? c->bytes + 1 : c->bytes + 2);
+}
+
+int8_t				*colchan_g(t_image *img, t_color *c)
+{
+	return (img->endian ? c->bytes + 2 : c->bytes + 1);
+}
+
+int8_t				*colchan_b(t_image *img, t_color *c)
+{
+	return (img->endian ? c->bytes + 3 : c->bytes);
 }

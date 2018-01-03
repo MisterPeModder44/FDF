@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:43:55 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/02 16:13:02 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/03 18:50:19 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,13 @@ typedef struct		s_image
 	t_mlx_context	*ctx;
 }					t_image;
 
+int8_t				*colchan_r(t_image *img, t_color *c);
 
-int8_t		*colchan_r(t_image *img, t_color *c)
-{
-	return (img->endian ? c->bytes + 1 : c->bytes + 2);
-}
+int8_t				*colchan_g(t_image *img, t_color *c);
 
-int8_t		*colchan_g(t_image *img, t_color *c)
-{
-	return (img->endian ? c->bytes + 2 : c->bytes + 1);
-}
-
-int8_t		*colchan_b(t_image *img, t_color *c)
-{
-	return (img->endian ? c->bytes + 3 : c->bytes);
-}
+int8_t				*colchan_b(t_image *img, t_color *c);
 
 void				img_pixel_put(t_image *img, const int x, const int y,
 		const t_color *color);
-
-void				getProj(t_image *img);
 
 #endif

@@ -6,15 +6,15 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/03 12:41:29 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/03 18:44:40 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-#include <stdint.h>
-#include <libft_base/list.h>
+# include <stdint.h>
+# include <libft_base/list.h>
 
 typedef struct		s_mlx_context
 {
