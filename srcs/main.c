@@ -6,22 +6,26 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/02 18:36:39 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/03 17:17:14 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include <mlx.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <libft_base/base.h>
+#include <libft_math/vectors.h>
 #include "fdf.h"
-#include "libft_base/base.h"
+#include "transform.h"
 
 void		quit_fdf(t_mlx_context *ctx, const char *reason)
 {
-	mlx_destroy_window(ctx->mlx, ctx->win);
+	if (ctx)
+		mlx_destroy_window(ctx->mlx, ctx->win);
 	if (reason)
 		ft_putendl_fd(reason, 2);
-	if (ctx->img)
+	if (ctx && ctx->img)
 		mlx_destroy_image(ctx->mlx, ctx->img);
 	exit(reason != NULL);
 }
@@ -38,10 +42,29 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 	}
 }
 
-int			main(void)
+//TEMPORARY
+static void printvec(t_list *lst)
 {
-	t_mlx_context	ctx;
+	t_vec3f	*vec;
 
+	vec = (t_vec3f *)lst->content;
+	printf("[%f, %f, %f]\n", *vec->x, *vec->y, *vec->z);
+}
+
+int			main(int ac, char **av)
+{
+	t_list			*lst;
+	t_mlx_context	ctx;
+	double			tmp;
+
+	if (ac != 2)
+		quit_fdf(NULL, "fdf: wrong number of arguments!");
+	if (!(lst = read_fdf_file(av[1])))
+		quit_fdf(NULL, NULL);
+	tmp = M_PI_2;
+	rotate_z(lst, tmp);
+	ft_lstiter(lst, &printvec);
+	delete_vector_list(&lst);
 	ctx.mlx = mlx_init();
 	ctx.width = 800;
 	ctx.height = 450;

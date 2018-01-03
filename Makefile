@@ -6,6 +6,10 @@ INC_PATH := includes
 
 SRCS_NAMES =	image.c			\
 				main.c			\
+				parse.c			\
+				rotate.c		\
+				translate.c		\
+				vector_lstdel.c	\
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 
@@ -19,7 +23,7 @@ CPPFLAGS = -I$(INC_PATH) -Ilibft/includes -I/usr/local/include
 RM = rm -f
 
 LIBFT = libft/libft.a
-LIBS = -L/usr/local/lib/ -lmlx -Llibft -lft
+LIBS = -lm -L/usr/local/lib/ -lmlx -Llibft -lft
 
 NORM_LOG = norm.log
 NORM_FILES =
