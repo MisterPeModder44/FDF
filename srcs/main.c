@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/03 17:17:14 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/04 08:29:45 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,12 @@ int			main(int ac, char **av)
 {
 	t_list			*lst;
 	t_mlx_context	ctx;
-	double			tmp;
 
 	if (ac != 2)
 		quit_fdf(NULL, "fdf: wrong number of arguments!");
 	if (!(lst = read_fdf_file(av[1])))
 		quit_fdf(NULL, NULL);
-	tmp = M_PI_2;
-	rotate_z(lst, tmp);
+	scale(lst, 2, 0, 0);
 	ft_lstiter(lst, &printvec);
 	delete_vector_list(&lst);
 	ctx.mlx = mlx_init();

@@ -8,6 +8,7 @@ SRCS_NAMES =	image.c			\
 				main.c			\
 				parse.c			\
 				rotate.c		\
+				scale.c			\
 				translate.c		\
 				vector_lstdel.c	\
 

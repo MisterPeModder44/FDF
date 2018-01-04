@@ -6,14 +6,13 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:31:05 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/03 17:15:45 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/04 08:26:46 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <libft_base/list.h>
 #include <libft_math/vectors.h>
-#include <stdio.h>
 
 void			rotate_x(t_list *veclst, double angle)
 {
