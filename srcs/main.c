@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/04 08:29:45 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/09 18:03:22 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,44 +32,44 @@ void		quit_fdf(t_mlx_context *ctx, const char *reason)
 
 static void	on_key_released(int key, t_mlx_context *ctx)
 {
-	if (key == 53)
-		quit_fdf(ctx, NULL);
-	else
+	if (key == ESC_KEY)
 	{
-		ft_putstr("key: ");
-		ft_putnbr(key);
-		ft_putendl("");
+		delete_vector_list(&ctx->vectors);
+		quit_fdf(ctx, NULL);
 	}
 }
 
 //TEMPORARY
-static void printvec(t_list *lst)
-{
-	t_vec3f	*vec;
+/*
+   static void printvec(t_list *lst)
+   {
+   t_vec3f	*vec;
 
-	vec = (t_vec3f *)lst->content;
-	printf("[%f, %f, %f]\n", *vec->x, *vec->y, *vec->z);
-}
+   vec = (t_vec3f *)lst->content;
+   printf("[%f, %f, %f]\n", *vec->x, *vec->y, *vec->z);
+   }*/
 
 int			main(int ac, char **av)
 {
-	t_list			*lst;
 	t_mlx_context	ctx;
+	float			m_pi_2;
 
 	if (ac != 2)
 		quit_fdf(NULL, "fdf: wrong number of arguments!");
-	if (!(lst = read_fdf_file(av[1])))
+	if (!(ctx.vectors = read_fdf_file(av[1])))
 		quit_fdf(NULL, NULL);
-	scale(lst, 2, 0, 0);
-	ft_lstiter(lst, &printvec);
-	delete_vector_list(&lst);
+	m_pi_2 = M_PI_2;
+	rotate_x(ctx.vectors, m_pi_2);
+	translate(ctx.vectors, 20, 10, 0);
+	scale(ctx.vectors, 10, 10, 0);
+	//ft_lstiter(ctx.vectors, &printvec);
 	ctx.mlx = mlx_init();
 	ctx.width = 800;
 	ctx.height = 450;
 	ctx.win = mlx_new_window(ctx.mlx, ctx.width, ctx.height, "- Fil De Fer -");
 	ctx.img = NULL;
 	mlx_key_hook(ctx.win, (int (*)())&on_key_released, &ctx);
-	put_fdf_render(&ctx);
+	put_fdf_render(&ctx, ctx.vectors);
 	mlx_loop(ctx.mlx);
 	return (0);
 }

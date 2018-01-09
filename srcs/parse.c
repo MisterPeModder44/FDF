@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 10:11:01 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/03 13:48:57 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/09 18:02:38 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ static t_list	*parse_fdf(int fd)
 	l = 0;
 	while ((ret = get_next_line(fd, &line)) == 1)
 	{
-		printf("line: %s\n", line);
-		fflush(stdout);
 		if ((ls[1] = parse_line(line, &lst, l)) == -1)
 			return (exit_parse(&lst, "fdf: parse error"));
 		ls[0] = ls[0] == -1 ? ls[1] : ls[0];
@@ -90,8 +88,6 @@ t_list			*read_fdf_file(char *path)
 
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (exit_parse(NULL, NULL));
-	printf("fd: %d\n", fd);
-	fflush(stdout);
 	if (!(list = parse_fdf(fd)))
 		return (NULL);
 	if (close(fd) == -1)

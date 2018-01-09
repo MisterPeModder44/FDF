@@ -5,8 +5,10 @@ OBJ_PATH := bin
 INC_PATH := includes
 
 SRCS_NAMES =	image.c			\
+				line.c			\
 				main.c			\
 				parse.c			\
+				project.c		\
 				rotate.c		\
 				scale.c			\
 				translate.c		\

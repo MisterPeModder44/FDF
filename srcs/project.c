@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   translate.c                                        :+:      :+:    :+:   */
+/*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/03 14:12:30 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 16:44:06 by yguaye           ###   ########.fr       */
+/*   Created: 2018/01/09 09:48:02 by yguaye            #+#    #+#             */
+/*   Updated: 2018/01/09 16:01:00 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft_base/list.h>
-#include <libft_math/vectors.h>
+#include <math.h>
+#include "transform.h"
 
-void			translate(t_list *veclst, float x, float y, float z)
+
+void				project(t_list *veclst, float fov, float screen_dist)
 {
-	t_vec3f		*vec;
+	t_vec3f			*tmp;
+	float			offset;
+	float			coef;
 
-	while (veclst)
+	offset = screen_dist / tan(fov);
+	while (veclst->next)
 	{
-		vec = (t_vec3f *)veclst->content;
-		*vec->x += x;
-		*vec->y += y;
-		*vec->z += z;
+		tmp = (t_vec3f *)veclst->content;
+		coef = (*tmp->z / sin(fov)) / screen_dist;
+		*tmp->z = ((float)sqrt(*tmp->x * *tmp->x + *tmp->z * *tmp->z)) / coef;
+		*tmp->x = *tmp->x / coef + offset;
+		*tmp->y = *tmp->y / coef + offset;
 		veclst = veclst->next;
 	}
 }
