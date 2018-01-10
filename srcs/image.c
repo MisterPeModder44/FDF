@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 17:40:32 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 16:55:04 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,28 @@
 #include "image.h"
 #include "line.h"
 
-void				put_fdf_render(t_mlx_context *ctx, t_list *vectors)
+static void			draw_links(t_image *img, t_vectab *tab, t_color *col)
+{
+	uint32_t	ty;
+	uint32_t	tx;
+
+	ty = 0;
+	while (ty < tab->height)
+	{
+		tx = 0;
+		while (tx < tab->width)
+		{
+			if (tx + 1 < tab->width)
+				draw_between(img, tab->tab[ty][tx], tab->tab[ty][tx + 1], col);
+			if (ty + 1 < tab->height)
+				draw_between(img, tab->tab[ty][tx], tab->tab[ty + 1][tx], col);
+			++tx;
+		}
+		++ty;
+	}
+}
+
+void				put_fdf_render(t_mlx_context *ctx)
 {
 	t_image			img;
 	t_color			color;
@@ -28,14 +49,8 @@ void				put_fdf_render(t_mlx_context *ctx, t_list *vectors)
 	img.data = mlx_get_data_addr(ctx->img, &img.bpp, &img.slen, &img.endian);
 	if (img.bpp < 32)
 		quit_fdf(ctx, "fdf: unsupported image format.");
-	color.value = 0x00FFFFFF;
-	while (vectors)
-	{
-		if (vectors->next)
-			draw_between(&img, (t_vec3f *)vectors->content,
-					(t_vec3f *)vectors->next->content, &color);
-		vectors = vectors->next;
-	}
+	color.value = 0x00FF9933;
+	draw_links(&img, ctx->projection, &color);
 	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img, 0, 0);
 }
 

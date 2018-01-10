@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 18:03:22 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 16:42:24 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,46 +30,97 @@ void		quit_fdf(t_mlx_context *ctx, const char *reason)
 	exit(reason != NULL);
 }
 
+float		to_rad(float angle)
+{
+	float	pi;
+
+	pi = M_PI;
+	return ((angle * pi) / 180.0f);
+}
+
 static void	on_key_released(int key, t_mlx_context *ctx)
 {
 	if (key == ESC_KEY)
 	{
-		delete_vector_list(&ctx->vectors);
+		delete_vectab(&ctx->vectab);
+		delete_vectab(&ctx->projection);
 		quit_fdf(ctx, NULL);
 	}
+	else if (key == W_KEY)
+		translate(ctx->vectab, 0, -1000, 0);
+	else if (key == A_KEY)
+		translate(ctx->vectab, -1000, 0, 0);
+	else if (key == S_KEY)
+		translate(ctx->vectab, 0, 1000, 0);
+	else if (key == D_KEY)
+		translate(ctx->vectab, 1000, 0, 0);
+	else if (key == UP_KEY)
+		rotate_x(ctx->vectab, to_rad(-1));
+	else if (key == LEFT_KEY)
+		rotate_y(ctx->vectab, to_rad(-1));
+	else if (key == DOWN_KEY)
+		rotate_x(ctx->vectab, to_rad(1));
+	else if (key == RIGHT_KEY)
+		rotate_y(ctx->vectab, to_rad(1));
+	else if (key == PLUS_KEY)
+		ctx->screen_dist += 0.1f;
+	else if (key == MINUS_KEY)
+		ctx->screen_dist -= 0.1f;
+	printf("key: %d\n", key);
+	project(ctx->vectab, &ctx->projection, 10.0f, ctx->screen_dist);
+	//scale(ctx->projection, 100, 100, 0);
+	//translate(ctx->projection, 500, 200, 0);
+	put_fdf_render(ctx);
 }
 
-//TEMPORARY
-/*
-   static void printvec(t_list *lst)
-   {
-   t_vec3f	*vec;
+void			printvec(t_vectab *vectab)
+{
+	uint32_t	ty;
+	uint32_t	tx;
 
-   vec = (t_vec3f *)lst->content;
-   printf("[%f, %f, %f]\n", *vec->x, *vec->y, *vec->z);
-   }*/
+	ty = 0;
+	while (ty < vectab->height)
+	{
+		tx = 0;
+		while (tx < vectab->width)
+		{
+			printf("[%f, %f, %f]\n", *vectab->tab[ty][tx]->x, *vectab->tab[ty][tx]->y, *vectab->tab[ty][tx]->z);
+			++tx;
+		}
+		++ty;
+	}
+}
 
 int			main(int ac, char **av)
 {
 	t_mlx_context	ctx;
-	float			m_pi_2;
 
 	if (ac != 2)
 		quit_fdf(NULL, "fdf: wrong number of arguments!");
-	if (!(ctx.vectors = read_fdf_file(av[1])))
+	if (!(ctx.vectab = read_fdf_file(av[1])))
 		quit_fdf(NULL, NULL);
-	m_pi_2 = M_PI_2;
-	rotate_x(ctx.vectors, m_pi_2);
-	translate(ctx.vectors, 20, 10, 0);
-	scale(ctx.vectors, 10, 10, 0);
+	ctx.projection = NULL;
+	ctx.screen_dist = 1.0f;
+	//printvec(ctx.vectab);
+	//fflush(stdout);
+	rotate_x(ctx.vectab, to_rad(200.0));
+	rotate_y(ctx.vectab, to_rad(0.0));
+	translate(ctx.vectab, 400, 400, 200);
+	scale(ctx.vectab, 100, 100, 1);
+	project(ctx.vectab, &ctx.projection, 10.0f, ctx.screen_dist);
+	printf("SEEEEEEEEEEEEEEEGFAULT\n");
+	fflush(stdout);
+	printvec(ctx.projection);
+	fflush(stdout);
+	//translate(ctx.projection, 500, 200, 0);
 	//ft_lstiter(ctx.vectors, &printvec);
 	ctx.mlx = mlx_init();
-	ctx.width = 800;
-	ctx.height = 450;
+	ctx.width = 2568;
+	ctx.height = 1400;
 	ctx.win = mlx_new_window(ctx.mlx, ctx.width, ctx.height, "- Fil De Fer -");
 	ctx.img = NULL;
 	mlx_key_hook(ctx.win, (int (*)())&on_key_released, &ctx);
-	put_fdf_render(&ctx, ctx.vectors);
+	put_fdf_render(&ctx);
 	mlx_loop(ctx.mlx);
 	return (0);
 }

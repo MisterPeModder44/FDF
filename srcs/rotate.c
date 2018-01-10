@@ -6,70 +6,86 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:31:05 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 18:04:16 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 10:28:00 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <libft_base/list.h>
 #include <libft_math/vectors.h>
-#include <stdio.h>
+#include "transform.h"
 
-void			rotate_x(t_list *veclst, double angle)
+void			rotate_x(t_vectab *vec, float angle)
 {
-	t_vec3f		*v;
 	double		cos_v;
 	double		sin_v;
 	float		tmp;
+	uint32_t	ty;
+	uint32_t	tx;
 
-	while (veclst)
+	ty = 0;
+	while (ty < vec->height)
 	{
-		v = (t_vec3f *)veclst->content;
-		printf("before: [%f, %f, %f]\n", *v->x, *v->y, *v->z);
-		cos_v = cos(angle);
-		sin_v = sin(angle);
-		tmp = *v->y;
-		*v->y = (float)(cos_v * *v->y + -sin_v * *v->z);
-		*v->z = (float)(sin_v * tmp + cos_v * *v->z);
-		printf("after: [%f, %f, %f]\n", *v->x, *v->y, *v->z);
-		veclst = veclst->next;
+		tx = 0;
+		while (tx < vec->width)
+		{
+			cos_v = cos(angle);
+			sin_v = sin(angle);
+			tmp = *vec->tab[ty][tx]->y;
+			*vec->tab[ty][tx]->y = (float)(cos_v * *vec->tab[ty][tx]->y + -sin_v * *vec->tab[ty][tx]->z);
+			*vec->tab[ty][tx]->z = (float)(sin_v * tmp + cos_v * *vec->tab[ty][tx]->z);
+			++tx;
+		}
+		++ty;
 	}
 }
 
-void			rotate_y(t_list *veclst, double angle)
+void			rotate_y(t_vectab *vec, float angle)
 {
-	t_vec3f		*v;
 	double		cos_v;
 	double		sin_v;
 	float		tmp;
+	uint32_t	ty;
+	uint32_t	tx;
 
-	while (veclst)
+	ty = 0;
+	while (ty < vec->height)
 	{
-		v = (t_vec3f *)veclst->content;
-		cos_v = cos(angle);
-		sin_v = sin(angle);
-		tmp = *v->x;
-		*v->x = (float)(cos_v * *v->x + sin_v * *v->z);
-		*v->z = (float)(-sin_v * tmp + cos_v * *v->z);
-		veclst = veclst->next;
+		tx = 0;
+		while (tx < vec->width)
+		{
+			cos_v = cos(angle);
+			sin_v = sin(angle);
+			tmp = *vec->tab[ty][tx]->y;
+			*vec->tab[ty][tx]->x = (float)(cos_v * *vec->tab[ty][tx]->x + sin_v * *vec->tab[ty][tx]->z);
+			*vec->tab[ty][tx]->z = (float)(-sin_v * tmp + cos_v * *vec->tab[ty][tx]->z);
+			++tx;
+		}
+		++ty;
 	}
 }
 
-void			rotate_z(t_list *veclst, double angle)
+void			rotate_z(t_vectab *vec, float angle)
 {
-	t_vec3f		*v;
 	double		cos_v;
 	double		sin_v;
 	float		tmp;
+	uint32_t	ty;
+	uint32_t	tx;
 
-	while (veclst)
+	ty = 0;
+	while (ty < vec->height)
 	{
-		v = (t_vec3f *)veclst->content;
-		cos_v = cos(angle);
-		sin_v = sin(angle);
-		tmp = *v->x;
-		*v->x = (float)(cos_v * *v->x + -sin_v * *v->y);
-		*v->y = (float)(sin_v * tmp + cos_v * *v->y);
-		veclst = veclst->next;
+		tx = 0;
+		while (tx < vec->width)
+		{
+			cos_v = cos(angle);
+			sin_v = sin(angle);
+			tmp = *vec->tab[ty][tx]->y;
+			*vec->tab[ty][tx]->x = (float)(cos_v * *vec->tab[ty][tx]->x + -sin_v * *vec->tab[ty][tx]->y);
+			*vec->tab[ty][tx]->y = (float)(sin_v * tmp + cos_v * *vec->tab[ty][tx]->y);
+			++tx;
+		}
+		++ty;
 	}
 }

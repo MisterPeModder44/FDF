@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 17:47:34 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 16:41:32 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,27 @@
 # define FDF_H
 
 # define ESC_KEY 53
+# define W_KEY 13
+# define A_KEY 0
+# define S_KEY 1
+# define D_KEY 2
+# define UP_KEY 126
+# define LEFT_KEY 123
+# define DOWN_KEY 125
+# define RIGHT_KEY 124
+# define PLUS_KEY 69
+# define MINUS_KEY 78
 
 # include <stdint.h>
 # include <libft_base/list.h>
+# include <libft_math/vectors.h>
+
+typedef struct		s_vectab
+{
+	t_vec3f			***tab;
+	uint32_t		width;
+	uint32_t		height;
+}					t_vectab;
 
 typedef struct		s_mlx_context
 {
@@ -25,13 +43,16 @@ typedef struct		s_mlx_context
 	uint32_t		width;
 	uint32_t		height;
 	void			*img;
-	t_list			*vectors;
+	t_vectab		*vectab;
+	t_vectab		*projection;
+	float			screen_dist;
 }					t_mlx_context;
 
 void				quit_fdf(t_mlx_context *ctx, const char *reason);
-void				put_fdf_render(t_mlx_context *ctx, t_list *vectors);
+void				put_fdf_render(t_mlx_context *ctx);
 
-t_list				*read_fdf_file(char *path);
-void				delete_vector_list(t_list **list);
+t_vectab			*read_fdf_file(char *path);
+void				delete_vector_list(t_list **veclst);
+void				delete_vectab(t_vectab **vectab);
 
 #endif

@@ -6,23 +6,30 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 08:26:18 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/04 08:28:33 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 10:03:34 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft_base/list.h>
 #include <libft_math/vectors.h>
+#include "transform.h"
 
-void			scale(t_list *veclst, float x, float y, float z)
+void			scale(t_vectab *vectab, float x, float y, float z)
 {
-	t_vec3f		*v;
+	uint32_t	ty;
+	uint32_t	tx;
 
-	while (veclst)
+	ty = 0;
+	while (ty < vectab->height)
 	{
-		v = (t_vec3f *)veclst->content;
-		*v->x *= x;
-		*v->y *= y;
-		*v->z *= z;
-		veclst = veclst->next;
+		tx = 0;
+		while (tx < vectab->width)
+		{
+			*vectab->tab[ty][tx]->x *= x;
+			*vectab->tab[ty][tx]->y *= y;
+			*vectab->tab[ty][tx]->z *= z;
+			++tx;
+		}
+		++ty;
 	}
 }

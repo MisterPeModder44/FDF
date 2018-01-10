@@ -6,23 +6,29 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:12:30 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 16:44:06 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 09:37:33 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft_base/list.h>
 #include <libft_math/vectors.h>
+#include "fdf.h"
 
-void			translate(t_list *veclst, float x, float y, float z)
+void			translate(t_vectab *vectab, float x, float y, float z)
 {
-	t_vec3f		*vec;
+	uint32_t	ty;
+	uint32_t	tx;
 
-	while (veclst)
+	ty = 0;
+	while (ty < vectab->height)
 	{
-		vec = (t_vec3f *)veclst->content;
-		*vec->x += x;
-		*vec->y += y;
-		*vec->z += z;
-		veclst = veclst->next;
+		tx = 0;
+		while (tx < vectab->width)
+		{
+			*vectab->tab[ty][tx]->x += x;
+			*vectab->tab[ty][tx]->y += y;
+			*vectab->tab[ty][tx]->z += z;
+			++tx;
+		}
+		++ty;
 	}
 }

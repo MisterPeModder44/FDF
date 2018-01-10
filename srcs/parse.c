@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 10:11:01 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 18:02:38 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 10:24:17 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		*exit_parse(t_list **lst, const char *line)
 	return (NULL);
 }
 
-static int		parse_line(const char *line, t_list **lst, const int height)
+static int		parse_line(const char *line, t_list **lst, int height)
 {
 	char		**tab;
 	int			i;
@@ -55,42 +55,77 @@ static int		parse_line(const char *line, t_list **lst, const int height)
 	return (i);
 }
 
-static t_list	*parse_fdf(int fd)
+static t_list	*parse_fdf(int fd, int *line_size, int *lines)
 {
 	int			ret;
 	char		*line;
 	t_list		*lst;
-	int			ls[2];
-	int			l;
+	int			ls;
 
 	lst = NULL;
-	ls[0] = -1;
-	l = 0;
+	*line_size = -1;
+	*lines = 0;
 	while ((ret = get_next_line(fd, &line)) == 1)
 	{
-		if ((ls[1] = parse_line(line, &lst, l)) == -1)
+		if ((ls = parse_line(line, &lst, *lines)) == -1)
 			return (exit_parse(&lst, "fdf: parse error"));
-		ls[0] = ls[0] == -1 ? ls[1] : ls[0];
-		if (ls[0] != ls[1])
+		*line_size = *line_size == -1 ? ls : *line_size;
+		if (*line_size != ls)
 			return (exit_parse(&lst, "fdf: cannot have different line sizes!"));
 		free(line);
-		++l;
+		++*lines;
 	}
 	if (ret == -1)
 		return (exit_parse(&lst, NULL));
 	return (lst);
 }
 
-t_list			*read_fdf_file(char *path)
+static t_vectab	*convert_to_tab(t_list *list, int line_size, int lines)
+{
+	t_vectab	*tab;
+	int			i;
+	int			j;
+
+	if (!(tab = (t_vectab *)malloc(sizeof(t_vectab))))
+		return (NULL);
+	tab->width = line_size;
+	tab->height = lines;
+	if (!(tab->tab = (t_vec3f ***)malloc(sizeof(t_vec3f **) * lines)))
+		return (NULL);
+	i = -1;
+	while (++i < lines)
+	{
+		if (!(tab->tab[i] = (t_vec3f **)malloc(sizeof (t_vec3f *) *
+						line_size)))
+			return (NULL);
+		j = -1;
+		while (list && ++j < line_size)
+		{
+			tab->tab[i][j] = list->content;
+			list = list->next;
+		}
+	}
+	return (tab);
+}
+
+t_vectab		*read_fdf_file(char *path)
 {
 	int			fd;
 	t_list		*list;
+	int			line_size;
+	int			lines;
+	t_vectab	*tab;
 
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (exit_parse(NULL, NULL));
-	if (!(list = parse_fdf(fd)))
+	if (!(list = parse_fdf(fd, &line_size, &lines)))
 		return (NULL);
-	if (close(fd) == -1)
+	if (!(tab = convert_to_tab(list, line_size, lines)) || close(fd) == -1)
 		return (exit_parse(&list, NULL));
-	return (list);
+	while (list)
+	{
+		free(list);
+		list = list->next;
+	}
+	return (tab);
 }
