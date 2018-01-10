@@ -6,18 +6,20 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 09:48:02 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 15:53:44 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 17:14:38 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdio.h>
+#include "fdf.h"
 #include "transform.h"
 
 static t_vectab		*new_vectab(uint32_t width, uint32_t height)
 {
 	t_vectab		*tab;
 	uint32_t		y;
+	uint32_t		x;
 
 	if (!(tab = (t_vectab*)malloc(sizeof(t_vectab))))
 		return (NULL);
@@ -28,6 +30,12 @@ static t_vectab		*new_vectab(uint32_t width, uint32_t height)
 	{
 		if (!(tab->tab[y] = (t_vec3f **)malloc(sizeof(t_vec3f *) * width)))
 			return (NULL);
+		x = 0;
+		while (x < width)
+		{
+			tab->tab[y][x] = new_vec3f(0, 0, 0);
+			++x;
+		}
 		++y;
 	}
 	return (tab);
@@ -46,8 +54,9 @@ static void			vectab_copy(const t_vectab *src, t_vectab *dst)
 		x = 0;
 		while (x < src->width)
 		{
-			dst->tab[y][x] = new_vec3f(*src->tab[y][x]->x,
-					*src->tab[y][x]->y, *src->tab[y][x]->z);
+			*dst->tab[y][x]->x = *src->tab[y][x]->x;
+			*dst->tab[y][x]->y = *src->tab[y][x]->y;
+			*dst->tab[y][x]->z = *src->tab[y][x]->z;
 			++x;
 		}
 		++y;

@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 16:55:04 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/10 16:57:46 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void				put_fdf_render(t_mlx_context *ctx)
 	img.data = mlx_get_data_addr(ctx->img, &img.bpp, &img.slen, &img.endian);
 	if (img.bpp < 32)
 		quit_fdf(ctx, "fdf: unsupported image format.");
-	color.value = 0x00FF9933;
+	color.value = 0x00b35900;
 	draw_links(&img, ctx->projection, &color);
 	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img, 0, 0);
 }
