@@ -12,6 +12,7 @@ SRCS_NAMES =	image.c			\
 				rotate.c		\
 				scale.c			\
 				translate.c		\
+				vectab.c		\
 				vector_lstdel.c	\
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)

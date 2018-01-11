@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 16:57:46 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/11 17:11:30 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static void			draw_links(t_image *img, t_vectab *tab, t_color *col)
 		tx = 0;
 		while (tx < tab->width)
 		{
-			if (tx + 1 < tab->width)
+			if (*tab->tab[ty][tx]->z > 0 && tx + 1 < tab->width)
 				draw_between(img, tab->tab[ty][tx], tab->tab[ty][tx + 1], col);
-			if (ty + 1 < tab->height)
+			if (*tab->tab[ty][tx]->z > 0 && ty + 1 < tab->height)
 				draw_between(img, tab->tab[ty][tx], tab->tab[ty + 1][tx], col);
 			++tx;
 		}
@@ -37,7 +37,7 @@ static void			draw_links(t_image *img, t_vectab *tab, t_color *col)
 	}
 }
 
-void				put_fdf_render(t_mlx_context *ctx)
+void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab)
 {
 	t_image			img;
 	t_color			color;
@@ -50,7 +50,7 @@ void				put_fdf_render(t_mlx_context *ctx)
 	if (img.bpp < 32)
 		quit_fdf(ctx, "fdf: unsupported image format.");
 	color.value = 0x00b35900;
-	draw_links(&img, ctx->projection, &color);
+	draw_links(&img, tab, &color);
 	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img, 0, 0);
 }
 

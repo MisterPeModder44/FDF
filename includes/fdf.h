@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 16:41:32 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/11 16:16:05 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ typedef struct		s_mlx_context
 }					t_mlx_context;
 
 void				quit_fdf(t_mlx_context *ctx, const char *reason);
-void				put_fdf_render(t_mlx_context *ctx);
+void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab);
 
 t_vectab			*read_fdf_file(char *path);
 void				delete_vector_list(t_list **veclst);
+
+t_vectab			*new_vectab(uint32_t width, uint32_t height);
+void				vectab_copy(const t_vectab *src, t_vectab *dst);
 void				delete_vectab(t_vectab **vectab);
 
 #endif

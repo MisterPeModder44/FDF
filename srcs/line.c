@@ -6,56 +6,12 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 17:25:24 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/09 17:38:40 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/11 17:14:19 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "line.h"
-
-
-static t_drawdata		*data_construct(t_vec2i *p1, t_vec2i *p2)
-{
-	t_drawdata *data;
-
-	data = (t_drawdata *)malloc(sizeof(t_drawdata));
-	data->delta_x = LN_ABS(*p2->x - *p1->x);
-	data->sign_x = *p1->x < *p2->x ? 1 : -1;
-	data->delta_y = LN_ABS(*p2->y - *p1->y);
-	data->sign_y = *p1->y < *p2->y ? 1 : -1;
-	data->delta_error = (data->delta_x > data->delta_y ? data->delta_x :
-			-(data->delta_y)) / 2;
-	return (data);
-}
-
-void				draw_line(t_image *img, t_vec2i *p1, t_vec2i *p2, t_color *color)
-{
-	int		x;
-	int		y;
-	int		e2;
-	t_drawdata	*data;
-
-	data = data_construct(p1, p2);
-	x = *p1->x;
-	y = *p1->y;
-	while (1)
-	{
-		img_pixel_put(img, x, y, color);
-		if (x == *p2->x && y == *p2->y)
-			break ;
-		if ((e2 = data->delta_error) > -(data->delta_x))
-		{
-			data->delta_error -= data->delta_y;
-			x += data->sign_x;
-		}
-		if (e2 < data->delta_y)
-		{
-			data->delta_error += data->delta_x;
-			y += data->sign_y;
-		}
-	}
-	free(data);
-}
 
 void line(t_image *img, int x0, int y0, int x1, int y1, t_color *color) {
 

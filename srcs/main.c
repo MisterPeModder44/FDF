@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/11 14:30:00 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/11 17:25:33 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 	else if (key == D_KEY)
 		translate(ctx->vectab, 1000, 0, 0);
 	else if (key == UP_KEY)
-		rotate_x(ctx->vectab, to_rad(-1));
+		rotate_x(ctx->vectab, to_rad(-90));
 	else if (key == LEFT_KEY)
-		rotate_y(ctx->vectab, to_rad(-1));
+		rotate_y(ctx->vectab, to_rad(-90));
 	else if (key == DOWN_KEY)
-		rotate_x(ctx->vectab, to_rad(1));
+		rotate_x(ctx->vectab, to_rad(90));
 	else if (key == RIGHT_KEY)
-		rotate_y(ctx->vectab, to_rad(1));
+		rotate_y(ctx->vectab, to_rad(90));
 	else if (key == PLUS_KEY)
 		translate(ctx->vectab, 0, 0, -1);
 	//ctx->screen_dist += 0.1f;
@@ -73,7 +73,7 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 	translate(ctx->projection, 1284, 700, 0);
 	//scale(ctx->projection, 100, 100, 0);
 	//translate(ctx->projection, 500, 200, 0);
-	put_fdf_render(ctx);
+	put_fdf_render(ctx, ctx->projection);
 }
 
 void			printvec(t_vectab *vectab)
@@ -125,7 +125,7 @@ int			main(int ac, char **av)
 	ctx.win = mlx_new_window(ctx.mlx, ctx.width, ctx.height, "- Fil De Fer -");
 	ctx.img = NULL;
 	mlx_key_hook(ctx.win, (int (*)())&on_key_released, &ctx);
-	put_fdf_render(&ctx);
+	put_fdf_render(&ctx, ctx.projection);
 	mlx_loop(ctx.mlx);
 	return (0);
 }
