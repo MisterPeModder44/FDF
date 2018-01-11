@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 16:42:24 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/11 14:30:00 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,14 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 	else if (key == RIGHT_KEY)
 		rotate_y(ctx->vectab, to_rad(1));
 	else if (key == PLUS_KEY)
-		ctx->screen_dist += 0.1f;
+		translate(ctx->vectab, 0, 0, -1);
+	//ctx->screen_dist += 0.1f;
 	else if (key == MINUS_KEY)
-		ctx->screen_dist -= 0.1f;
+		translate(ctx->vectab, 0, 0, 1);
+	//ctx->screen_dist -= 0.1f;
 	printf("key: %d\n", key);
 	project(ctx->vectab, &ctx->projection, 10.0f, ctx->screen_dist);
+	translate(ctx->projection, 1284, 700, 0);
 	//scale(ctx->projection, 100, 100, 0);
 	//translate(ctx->projection, 500, 200, 0);
 	put_fdf_render(ctx);
@@ -105,9 +108,11 @@ int			main(int ac, char **av)
 	//fflush(stdout);
 	rotate_x(ctx.vectab, to_rad(200.0));
 	rotate_y(ctx.vectab, to_rad(0.0));
-	translate(ctx.vectab, 400, 400, 200);
+	translate(ctx.vectab, 0, 0, 25);
+	//translate(ctx.vectab, 100, 100, 200);
 	scale(ctx.vectab, 100, 100, 1);
 	project(ctx.vectab, &ctx.projection, 10.0f, ctx.screen_dist);
+	translate(ctx.projection, 1284, 700, 0);
 	printf("SEEEEEEEEEEEEEEEGFAULT\n");
 	fflush(stdout);
 	printvec(ctx.projection);
