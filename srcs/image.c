@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/11 17:11:30 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/13 16:56:33 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 #include "image.h"
 #include "line.h"
 
-static void			draw_links(t_image *img, t_vectab *tab, t_color *col)
+static void			draw_links(t_image *img, t_vectab *tab, t_color *col, t_bool diagonal)
 {
 	uint32_t	ty;
 	uint32_t	tx;
+	t_bool		f1;
+	t_bool		f2;
 
 	ty = 0;
 	while (ty < tab->height)
@@ -27,10 +29,15 @@ static void			draw_links(t_image *img, t_vectab *tab, t_color *col)
 		tx = 0;
 		while (tx < tab->width)
 		{
-			if (*tab->tab[ty][tx]->z > 0 && tx + 1 < tab->width)
+			if ((f1 = *tab->tab[ty][tx]->z > 0 && tx + 1 < tab->width))
 				draw_between(img, tab->tab[ty][tx], tab->tab[ty][tx + 1], col);
-			if (*tab->tab[ty][tx]->z > 0 && ty + 1 < tab->height)
+			if ((f2 = *tab->tab[ty][tx]->z > 0 && ty + 1 < tab->height))
 				draw_between(img, tab->tab[ty][tx], tab->tab[ty + 1][tx], col);
+			if (diagonal && f1 && f2)
+			{
+				draw_between(img, tab->tab[ty][tx], tab->tab[ty + 1][tx + 1],
+						col);
+			}
 			++tx;
 		}
 		++ty;
@@ -50,7 +57,7 @@ void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab)
 	if (img.bpp < 32)
 		quit_fdf(ctx, "fdf: unsupported image format.");
 	color.value = 0x00b35900;
-	draw_links(&img, tab, &color);
+	draw_links(&img, tab, &color, FALSE);
 	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img, 0, 0);
 }
 

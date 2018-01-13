@@ -7,9 +7,11 @@ INC_PATH := includes
 SRCS_NAMES =	image.c			\
 				line.c			\
 				main.c			\
+				maps.c			\
 				parse.c			\
 				project.c		\
 				rotate.c		\
+				rotate_m.c		\
 				scale.c			\
 				translate.c		\
 				vectab.c		\
