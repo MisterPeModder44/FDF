@@ -19,8 +19,16 @@ SRCS_NAMES =	image.c			\
 
 OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 
+INCS_NAMES =	fdf.h			\
+				image.h			\
+				keys.h			\
+				line.h			\
+				maps.h			\
+				transform.h		\
+
 SRCS = $(addprefix $(SRC_PATH)/, $(SRCS_NAMES))
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAMES))
+INCS = $(addprefix $(INC_PATH)/, $(INCS_NAMES))
 
 CC = gcc
 CFLAGS = --std=c99 -Wall -Werror -Wextra
@@ -36,7 +44,7 @@ NORM_FILES =
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS) $(INCS)
 	@tput dl; tput cub 100; printf "\033[90mCreating object files: \033[32mdone!"
 	@printf "\n\033[90mCompiling \033[0m$(NAME)\033[90m: \033[0m"
 	@$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LIBS) $(FRAMEWORKS)
