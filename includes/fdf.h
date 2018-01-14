@@ -6,24 +6,12 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/13 15:51:43 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 11:14:36 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
-# define ESC_KEY 53
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1
-# define D_KEY 2
-# define UP_KEY 126
-# define LEFT_KEY 123
-# define DOWN_KEY 125
-# define RIGHT_KEY 124
-# define PLUS_KEY 69
-# define MINUS_KEY 78
 
 # include <stdint.h>
 # include <libft_base/list.h>

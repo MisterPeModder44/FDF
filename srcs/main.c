@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/13 17:30:37 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 11:16:17 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "fdf.h"
 #include "maps.h"
 #include "transform.h"
-#include <libft_base/io.h>
+#include "keys.h"
 
 void		quit_fdf(t_mlx_context *ctx, const char *reason)
 {
@@ -50,10 +50,7 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 {
 	if (key == ESC_KEY)
 	{
-		ft_putendl("test");
 		del_maps(&(ctx->maps));
-		printf("after\n");
-		fflush(stdout);
 		quit_fdf(ctx, NULL);
 	}
 	else if (key == W_KEY)
@@ -74,12 +71,15 @@ static void	on_key_released(int key, t_mlx_context *ctx)
 		rotate_y(ctx->curr->base, to_rad(90));
 	else if (key == PLUS_KEY)
 		translate(ctx->curr->base, 0, 0, -1);
-	//ctx->screen_dist += 0.1f;
 	else if (key == MINUS_KEY)
 		translate(ctx->curr->base, 0, 0, 1);
-	//ctx->screen_dist -= 0.1f;
+	else if (key == BRACKET_LEFT_KEY)
+		ctx->curr = ctx->curr->prev;
+	else if (key == BRACKET_RIGHT_KEY)
+		ctx->curr = ctx->curr->next;
 	transform_projection(ctx);
 	put_fdf_render(ctx, ctx->curr->proj);
+	printf("key: %d\n", key);
 }
 
 void			printvec(t_vectab *vectab)
@@ -109,7 +109,7 @@ static void	init_window(t_mlx_context *ctx)
 	ctx->win = mlx_new_window(ctx->mlx, ctx->width, ctx->height,
 			"- Fil De Fer -");
 	ctx->img = NULL;
-	mlx_key_hook(ctx->win, (int (*)())&on_key_released, &ctx);
+	mlx_key_hook(ctx->win, (int (*)())&on_key_released, ctx);
 }
 
 int			main(int ac, char **av)
@@ -119,15 +119,13 @@ int			main(int ac, char **av)
 
 	if (ac < 2)
 		quit_fdf(NULL, "fdf: too few arguments!");
-	init_window(&ctx);
 	arg = 0;
 	while (++arg < ac)
 	{
 		if (add_map_file(&ctx.maps, av[arg]) == FALSE)
 			quit_fdf(NULL, "fdf: could not read file!");
 	}
-	printf("name 0: %s\nname 1: %s\nname 2: %s\nbeg: %s\n", ctx.maps->name, ctx.maps->next->name, ctx.maps->next->next->name, ctx.maps->next->next->next->name);
-	fflush(stdout);
+	init_window(&ctx);
 	ctx.curr = ctx.maps->prev;
 	rotate_x(ctx.curr->base, to_rad(225.0));
 	translate(ctx.curr->base, 0, 0, 25);

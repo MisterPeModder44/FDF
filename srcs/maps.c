@@ -6,13 +6,12 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 14:53:35 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/13 17:30:06 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 11:12:31 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft_base/stringft.h>
 #include <libft_base/io.h>
-#include <stdio.h>
 #include "maps.h"
 
 static t_map		*new_map(void)
@@ -61,7 +60,6 @@ t_bool				add_map_file(t_map **maps, char *path)
 		(*maps)->prev = nmap;
 		*maps = nmap;
 	}
-	printf("address: %lx, prev: %lx, next: %lx\n", (unsigned long)nmap, (unsigned long)nmap->prev, (unsigned long)nmap->next);
 	if (!(nmap->base = read_fdf_file(path)))
 		return (FALSE);
 	nmap->name = file_basename(path);
@@ -72,21 +70,22 @@ void				del_maps(t_map **maps)
 {
 	t_map			*iter;
 
-	ft_putstr("name: ");
-	printf("%lx", (unsigned long)*maps);
-	ft_putendl("");
 	iter = (*maps)->next;
 	while (iter && iter != *maps)
 	{
-		delete_vectab(&iter->base);
-		delete_vectab(&iter->proj);
+		if (iter->base)
+			delete_vectab(&iter->base);
+		if (iter->proj)
+			delete_vectab(&iter->proj);
 		ft_strdel(&iter->name);
 		free(iter);
 		iter = iter->next;
 		iter->prev = NULL;
 	}
-	delete_vectab(&iter->base);
-	delete_vectab(&iter->proj);
+	if (iter->base)
+		delete_vectab(&iter->base);
+	if (iter->proj)
+		delete_vectab(&iter->proj);
 	ft_strdel(&iter->name);
 	free(iter);
 	*maps = NULL;
