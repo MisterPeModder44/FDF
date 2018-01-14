@@ -6,12 +6,13 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:05:23 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 13:46:42 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <libft_math/vectors.h>
+#include <libft_base/stringft.h>
 #include "fdf.h"
 #include "image.h"
 #include "line.h"
@@ -45,6 +46,15 @@ static void			draw_links(t_image *img, t_vectab *tab, t_color *col,
 	}
 }
 
+static void			put_hints(t_mlx_context *ctx)
+{
+	size_t			nlen;
+
+	nlen = ft_strlen(ctx->curr->name);
+	mlx_string_put(ctx->mlx, ctx->win, ctx->width - (nlen * 10) - 20, 0, 0x00FFFFFF, ctx->curr->name);
+	mlx_string_put(ctx->mlx, ctx->win, 0, 0, 0x00FFFFFF, "Press <esc> to quit");
+}
+
 void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab)
 {
 	t_image			img;
@@ -60,6 +70,7 @@ void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab)
 	color.value = 0x00b35900;
 	draw_links(&img, tab, &color, FALSE);
 	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img, 0, 0);
+	put_hints(ctx);
 }
 
 void				img_pixel_put(t_image *img, const int x, const int y,
