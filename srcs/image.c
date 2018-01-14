@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/13 16:56:33 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 12:05:23 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include "image.h"
 #include "line.h"
 
-static void			draw_links(t_image *img, t_vectab *tab, t_color *col, t_bool diagonal)
+static void			draw_links(t_image *img, t_vectab *tab, t_color *col,
+		t_bool diagonal)
 {
 	uint32_t	ty;
 	uint32_t	tx;
@@ -74,19 +75,4 @@ void				img_pixel_put(t_image *img, const int x, const int y,
 	img->data[pos + 1] = color->bytes[1];
 	img->data[pos + 2] = color->bytes[2];
 	img->data[pos + 3] = color->bytes[3];
-}
-
-int8_t				*colchan_r(t_image *img, t_color *c)
-{
-	return (img->endian ? c->bytes + 1 : c->bytes + 2);
-}
-
-int8_t				*colchan_g(t_image *img, t_color *c)
-{
-	return (img->endian ? c->bytes + 2 : c->bytes + 1);
-}
-
-int8_t				*colchan_b(t_image *img, t_color *c)
-{
-	return (img->endian ? c->bytes + 3 : c->bytes);
 }

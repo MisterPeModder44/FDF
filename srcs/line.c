@@ -6,39 +6,49 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 17:25:24 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/11 17:14:19 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 11:58:49 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "line.h"
 
-void line(t_image *img, int x0, int y0, int x1, int y1, t_color *color) {
+static void			line(t_image *img, t_vec2i *p0, t_vec2i *p1, t_color *color)
+{
+	int				d[2];
+	int				s[2];
+	int				err;
+	int				e2;
 
-	int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
-	int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
-	int err = (dx>dy ? dx : -dy)/2, e2;
-
-	for(;;){
-		img_pixel_put(img, x0, y0, color);
-		if (x0==x1 && y0==y1) break;
+	d[0] = abs(*p1->x - *p0->x);
+	s[0] = *p0->x < *p1->x ? 1 : -1;
+	d[1] = abs(*p1->y - *p0->y);
+	s[1] = *p0->y < *p1->y ? 1 : -1;
+	err = (d[0] > d[1] ? d[0] : -d[1]) / 2;
+	while (1)
+	{
+		img_pixel_put(img, *p0->x, *p0->y, color);
+		if (*p0->x == *p1->x && *p0->y == *p1->y)
+			break ;
 		e2 = err;
-		if (e2 >-dx) { err -= dy; x0 += sx; }
-		if (e2 < dy) { err += dx; y0 += sy; }
+		err -= e2 > -d[0] ? d[1] : 0;
+		err += e2 < d[1] ? d[0] : 0;
+		*p0->x += e2 > -d[0] ? s[0] : 0;
+		*p0->y += e2 < d[1] ? s[1] : 0;
 	}
 }
 
 void				draw_between(t_image *img, t_vec3f *v1, t_vec3f *v2,
 		t_color *color)
 {
+	t_vec2i			*p0;
 	t_vec2i			*p1;
-	t_vec2i			*p2;
 
-	if (!(p1 = new_vec2i(*v1->x, *v1->y)))
+	if (!(p0 = new_vec2i(*v1->x, *v1->y)))
 		return ;
-	if (!(p2 = new_vec2i(*v2->x, *v2->y)))
+	if (!(p1 = new_vec2i(*v2->x, *v2->y)))
 		return ;
-	line(img, *p1->x, *p1->y, *p2->x, *p2->y, color);
+	line(img, p0, p1, color);
+	del_vec2((t_vec2 **)&p0);
 	del_vec2((t_vec2 **)&p1);
-	del_vec2((t_vec2 **)&p2);
 }

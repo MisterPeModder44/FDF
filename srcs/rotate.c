@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:31:05 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 10:28:00 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 12:26:39 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void			rotate_x(t_vectab *vec, float angle)
 			cos_v = cos(angle);
 			sin_v = sin(angle);
 			tmp = *vec->tab[ty][tx]->y;
-			*vec->tab[ty][tx]->y = (float)(cos_v * *vec->tab[ty][tx]->y + -sin_v * *vec->tab[ty][tx]->z);
-			*vec->tab[ty][tx]->z = (float)(sin_v * tmp + cos_v * *vec->tab[ty][tx]->z);
+			*vec->tab[ty][tx]->y = (float)(cos_v * *vec->tab[ty][tx]->y +
+					-sin_v * *vec->tab[ty][tx]->z);
+			*vec->tab[ty][tx]->z = (float)(sin_v * tmp + cos_v *
+					*vec->tab[ty][tx]->z);
 			++tx;
 		}
 		++ty;
@@ -57,8 +59,10 @@ void			rotate_y(t_vectab *vec, float angle)
 			cos_v = cos(angle);
 			sin_v = sin(angle);
 			tmp = *vec->tab[ty][tx]->y;
-			*vec->tab[ty][tx]->x = (float)(cos_v * *vec->tab[ty][tx]->x + sin_v * *vec->tab[ty][tx]->z);
-			*vec->tab[ty][tx]->z = (float)(-sin_v * tmp + cos_v * *vec->tab[ty][tx]->z);
+			*vec->tab[ty][tx]->x = (float)(cos_v * *vec->tab[ty][tx]->x +
+					sin_v * *vec->tab[ty][tx]->z);
+			*vec->tab[ty][tx]->z = (float)(-sin_v * tmp + cos_v *
+					*vec->tab[ty][tx]->z);
 			++tx;
 		}
 		++ty;
@@ -82,8 +86,10 @@ void			rotate_z(t_vectab *vec, float angle)
 			cos_v = cos(angle);
 			sin_v = sin(angle);
 			tmp = *vec->tab[ty][tx]->y;
-			*vec->tab[ty][tx]->x = (float)(cos_v * *vec->tab[ty][tx]->x + -sin_v * *vec->tab[ty][tx]->y);
-			*vec->tab[ty][tx]->y = (float)(sin_v * tmp + cos_v * *vec->tab[ty][tx]->y);
+			*vec->tab[ty][tx]->x = (float)(cos_v * *vec->tab[ty][tx]->x +
+					-sin_v * *vec->tab[ty][tx]->y);
+			*vec->tab[ty][tx]->y = (float)(sin_v * tmp + cos_v *
+					*vec->tab[ty][tx]->y);
 			++tx;
 		}
 		++ty;

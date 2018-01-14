@@ -4,7 +4,9 @@ SRC_PATH := srcs
 OBJ_PATH := bin
 INC_PATH := includes
 
-SRCS_NAMES =	image.c			\
+SRCS_NAMES =	colors.c		\
+				image.c			\
+				keys.c			\
 				line.c			\
 				main.c			\
 				maps.c			\
@@ -14,6 +16,7 @@ SRCS_NAMES =	image.c			\
 				rotate_m.c		\
 				scale.c			\
 				translate.c		\
+				utils.c			\
 				vectab.c		\
 				vector_lstdel.c	\
 
@@ -25,6 +28,7 @@ INCS_NAMES =	fdf.h			\
 				line.h			\
 				maps.h			\
 				transform.h		\
+				utils.h			\
 
 SRCS = $(addprefix $(SRC_PATH)/, $(SRCS_NAMES))
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAMES))

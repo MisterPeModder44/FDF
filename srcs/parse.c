@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 10:11:01 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/10 10:24:17 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 12:39:39 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_vectab	*convert_to_tab(t_list *list, int line_size, int lines)
 	i = -1;
 	while (++i < lines)
 	{
-		if (!(tab->tab[i] = (t_vec3f **)malloc(sizeof (t_vec3f *) *
+		if (!(tab->tab[i] = (t_vec3f **)malloc(sizeof(t_vec3f *) *
 						line_size)))
 			return (NULL);
 		j = -1;

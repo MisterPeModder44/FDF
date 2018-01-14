@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 14:53:35 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 11:12:31 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 12:03:11 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,4 @@ void				del_maps(t_map **maps)
 	ft_strdel(&iter->name);
 	free(iter);
 	*maps = NULL;
-
 }

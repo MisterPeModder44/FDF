@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:14:23 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/11 15:15:42 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 12:27:31 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			vectab_copy(const t_vectab *src, t_vectab *dst)
 	}
 }
 
-void				delete_vectab(t_vectab **vectab)
+void			delete_vectab(t_vectab **vectab)
 {
 	uint32_t	ty;
 	uint32_t	tx;

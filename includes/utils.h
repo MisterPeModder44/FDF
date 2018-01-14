@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/14 11:14:31 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:28:52 by yguaye           ###   ########.fr       */
+/*   Created: 2018/01/14 12:32:52 by yguaye            #+#    #+#             */
+/*   Updated: 2018/01/14 12:35:00 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# define ESC_KEY 53
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1
-# define D_KEY 2
-# define UP_KEY 126
-# define LEFT_KEY 123
-# define DOWN_KEY 125
-# define RIGHT_KEY 124
-# define PLUS_KEY 69
-# define MINUS_KEY 78
-# define BRACKET_LEFT_KEY 33
-# define BRACKET_RIGHT_KEY 30
-
-void		on_key_released(int key, t_mlx_context *ctx);
+float			to_rad(float angle);
 
 #endif
