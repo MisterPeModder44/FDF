@@ -5,6 +5,7 @@ OBJ_PATH := bin
 INC_PATH := includes
 
 SRCS_NAMES =	colors.c		\
+				events.c		\
 				image.c			\
 				keys.c			\
 				line.c			\
@@ -24,7 +25,7 @@ OBJS_NAMES = $(SRCS_NAMES:.c=.o)
 
 INCS_NAMES =	fdf.h			\
 				image.h			\
-				keys.h			\
+				events.h		\
 				line.h			\
 				maps.h			\
 				transform.h		\

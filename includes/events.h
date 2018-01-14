@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys.h                                             :+:      :+:    :+:   */
+/*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 11:14:31 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:28:52 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 14:23:31 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef EVENTS_H
+# define EVENTS_H
+
+# include "fdf.h"
+
+# define X11_STRUCTURENOTIFYMASK (1L<<17)
+# define X11_DESTROYNOTIFY 17
 
 # define ESC_KEY 53
 # define W_KEY 13
@@ -27,6 +32,11 @@
 # define BRACKET_LEFT_KEY 33
 # define BRACKET_RIGHT_KEY 30
 
-void		on_key_released(int key, t_mlx_context *ctx);
+# define SCROLL_UP_KEY 4
+# define SCROLL_DOWN_KEY 5
+
+int			on_key_released(int key, t_mlx_context *ctx);
+int			on_close_window(t_mlx_context *ctx);
+int			on_mouse_pressed(int button, int x, int y, t_mlx_context *ctx);
 
 #endif

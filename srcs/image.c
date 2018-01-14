@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 13:46:42 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 14:33:22 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void			put_hints(t_mlx_context *ctx)
 	size_t			nlen;
 
 	nlen = ft_strlen(ctx->curr->name);
-	mlx_string_put(ctx->mlx, ctx->win, ctx->width - (nlen * 10) - 20, 0, 0x00FFFFFF, ctx->curr->name);
+	mlx_string_put(ctx->mlx, ctx->win, ctx->width - (nlen * 10) - 20, 0,
+			0x00FFFFFF, ctx->curr->name);
 	mlx_string_put(ctx->mlx, ctx->win, 0, 0, 0x00FFFFFF, "Press <esc> to quit");
 }
 

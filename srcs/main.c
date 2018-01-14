@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:39:18 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 14:21:20 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "fdf.h"
 #include "maps.h"
 #include "transform.h"
-#include "keys.h"
+#include "events.h"
 #include "utils.h"
 
 void			quit_fdf(t_mlx_context *ctx, const char *reason)
@@ -62,6 +62,9 @@ static void		init_window(t_mlx_context *ctx)
 			"- Fil De Fer -");
 	ctx->img = NULL;
 	mlx_key_hook(ctx->win, (int (*)())&on_key_released, ctx);
+	mlx_mouse_hook(ctx->win, (int (*)())&on_mouse_pressed, ctx);
+	mlx_hook(ctx->win, X11_DESTROYNOTIFY, X11_STRUCTURENOTIFYMASK,
+			(int (*)())&on_close_window, ctx);
 }
 
 int				main(int ac, char **av)

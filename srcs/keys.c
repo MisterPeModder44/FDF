@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 12:29:44 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:41:00 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/14 14:07:14 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 #include "fdf.h"
 #include "maps.h"
 #include "transform.h"
-#include "keys.h"
-#include "keys.h"
+#include "events.h"
 #include "utils.h"
 
 static void	on_key_r1(int key, t_mlx_context *ctx)
 {
 	if (key == ESC_KEY)
-	{
-		del_maps(&(ctx->maps));
-		quit_fdf(ctx, NULL);
-	}
+		on_close_window(ctx);
 	else if (key == W_KEY)
 		translate(ctx->curr->base, 0, -1000, 0);
 	else if (key == A_KEY)
@@ -35,7 +31,7 @@ static void	on_key_r1(int key, t_mlx_context *ctx)
 		translate(ctx->curr->base, 1000, 0, 0);
 }
 
-void		on_key_released(int key, t_mlx_context *ctx)
+int			on_key_released(int key, t_mlx_context *ctx)
 {
 	on_key_r1(key, ctx);
 	if (key == UP_KEY)
@@ -58,4 +54,5 @@ void		on_key_released(int key, t_mlx_context *ctx)
 	translate(ctx->curr->proj, ctx->width / 2, ctx->height / 2, 0);
 	put_fdf_render(ctx, ctx->curr->proj);
 	printf("key: %d\n", key);
+	return (0);
 }
