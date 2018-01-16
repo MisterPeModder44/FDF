@@ -1,5 +1,6 @@
 *.o
 libft.a
+libmlx.a
 fdf
 *.exe
 .syntastic_c_config
