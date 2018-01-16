@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 12:29:44 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 14:07:14 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 15:20:30 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	on_key_r1(int key, t_mlx_context *ctx)
 		translate(ctx->curr->base, 0, 1000, 0);
 	else if (key == D_KEY)
 		translate(ctx->curr->base, 1000, 0, 0);
+	else if (key == Z_KEY)
+		ctx->draw_diags = !ctx->draw_diags;
 }
 
 int			on_key_released(int key, t_mlx_context *ctx)

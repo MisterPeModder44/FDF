@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 13:58:44 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 15:17:48 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_mlx_context
 	t_map			*maps;
 	t_map			*curr;
 	float			screen_dist;
+	int				draw_diags;
 }					t_mlx_context;
 
 void				quit_fdf(t_mlx_context *ctx, const char *reason);

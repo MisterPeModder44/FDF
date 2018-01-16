@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 14:53:35 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:03:11 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 15:25:10 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_map		*new_map(void)
 	return (nmap);
 }
 
-char				*file_basename(char *path)
+static char				*file_basename(char *path)
 {
 	char			**tab;
 	int				i;

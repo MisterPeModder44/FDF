@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 14:21:20 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 15:18:42 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ static void		init_window(t_mlx_context *ctx)
 	ctx->win = mlx_new_window(ctx->mlx, ctx->width, ctx->height,
 			"- Fil De Fer -");
 	ctx->img = NULL;
+	ctx->draw_diags = 0;
 	mlx_key_hook(ctx->win, (int (*)())&on_key_released, ctx);
 	mlx_mouse_hook(ctx->win, (int (*)())&on_mouse_pressed, ctx);
 	mlx_hook(ctx->win, X11_DESTROYNOTIFY, X11_STRUCTURENOTIFYMASK,
 			(int (*)())&on_close_window, ctx);
+	mlx_hook(ctx->win, X11_MOTIONNOTIFY, 1L << 13,
+			(int (*)())&on_mouse_movement, ctx);
 }
 
 int				main(int ac, char **av)

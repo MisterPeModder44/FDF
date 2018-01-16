@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 13:58:13 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 14:25:44 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 15:10:11 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ int			on_mouse_pressed(int button, int x, int y, t_mlx_context *ctx)
 		translate(ctx->curr->proj, ctx->width / 2, ctx->height / 2, 0);
 		put_fdf_render(ctx, ctx->curr->proj);
 	}
-	printf("[%d, %d]: button: %d\n", x, y, button);
+	x = 0;
+	y = 0;
+	return (0);
+}
+
+int			on_mouse_movement(int x, int y, t_mlx_context *ctx)
+{
+	printf("mouse movement at %d, %d\n", x, y);
+	ctx = 0;
 	return (0);
 }
