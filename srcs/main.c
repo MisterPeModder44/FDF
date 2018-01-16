@@ -6,14 +6,13 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:13:46 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 17:53:33 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <mlx.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <libft_base/base.h>
 #include <libft_math/vectors.h>
 #include "fdf.h"
@@ -37,8 +36,8 @@ static void		init_window(t_mlx_context *ctx)
 {
 	ctx->screen_dist = 10.0f;
 	ctx->mlx = mlx_init();
-	ctx->width = 400;
-	ctx->height = 400;
+	ctx->width = 800;
+	ctx->height = 800;
 	ctx->win = mlx_new_window(ctx->mlx, ctx->width, ctx->height,
 			"- Fil De Fer -");
 	ctx->img = NULL;
@@ -73,11 +72,6 @@ int				main(int ac, char **av)
 	ctx.mouse = &mouse;
 	init_window(&ctx);
 	ctx.curr = ctx.maps->prev;
-	rotate_x(ctx.curr->base, to_rad(225.0));
-	translate(ctx.curr->base, 0, 0, ctx.curr->base->height * 2);
-	scale(ctx.curr->base, 100, 100, 1);
-	translate(ctx.curr->base, -(int)((ctx.curr->base->width - 1) * 100 / 2),
-			0, 0);
 	project(ctx.curr->base, &ctx.curr->proj, ctx.screen_dist);
 	translate(ctx.curr->proj, ctx.width / 2, ctx.height / 2, 0);
 	put_fdf_render(&ctx, ctx.curr->proj);

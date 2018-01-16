@@ -6,11 +6,10 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 12:29:44 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:24:20 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 17:53:04 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "fdf.h"
 #include "maps.h"
 #include "transform.h"
@@ -55,6 +54,5 @@ int			on_key_released(int key, t_mlx_context *ctx)
 	project(ctx->curr->base, &ctx->curr->proj, ctx->screen_dist);
 	translate(ctx->curr->proj, ctx->width / 2, ctx->height / 2, 0);
 	put_fdf_render(ctx, ctx->curr->proj);
-	printf("key: %d\n", key);
 	return (0);
 }

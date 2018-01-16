@@ -6,12 +6,11 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 09:48:02 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/14 12:11:51 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 17:54:33 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <stdio.h>
 #include "fdf.h"
 #include "transform.h"
 

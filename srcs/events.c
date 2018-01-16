@@ -6,11 +6,10 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 13:58:13 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:17:04 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 17:53:23 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "maps.h"
 #include "events.h"
 #include "transform.h"
@@ -37,8 +36,6 @@ int			on_mouse_pressed(int button, int x, int y, t_mlx_context *ctx)
 		ctx->mouse->pressed = TRUE;
 		ctx->mouse->last_x = x;
 		ctx->mouse->last_y = y;
-		printf("event!\n");
-		fflush(stdout);
 	}
 	return (0);
 }
