@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 15:17:48 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 16:28:32 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ typedef struct		s_map
 	struct s_map	*next;
 }					t_map;
 
+typedef struct		s_mouse
+{
+	int				last_x;
+	int				last_y;
+	t_bool			pressed;
+}					t_mouse;
+
 typedef struct		s_mlx_context
 {
 	void			*mlx;
@@ -50,6 +57,7 @@ typedef struct		s_mlx_context
 	t_map			*curr;
 	float			screen_dist;
 	int				draw_diags;
+	t_mouse			*mouse;
 }					t_mlx_context;
 
 void				quit_fdf(t_mlx_context *ctx, const char *reason);

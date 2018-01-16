@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 15:18:42 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 16:06:47 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,23 @@ static void		init_window(t_mlx_context *ctx)
 			"- Fil De Fer -");
 	ctx->img = NULL;
 	ctx->draw_diags = 0;
+	ctx->mouse->last_x = 0;
+	ctx->mouse->last_y = 0;
+	ctx->mouse->pressed = FALSE;
 	mlx_key_hook(ctx->win, (int (*)())&on_key_released, ctx);
 	mlx_mouse_hook(ctx->win, (int (*)())&on_mouse_pressed, ctx);
 	mlx_hook(ctx->win, X11_DESTROYNOTIFY, X11_STRUCTURENOTIFYMASK,
 			(int (*)())&on_close_window, ctx);
-	mlx_hook(ctx->win, X11_MOTIONNOTIFY, 1L << 13,
+	mlx_hook(ctx->win, X11_MOTIONNOTIFY, 0,
 			(int (*)())&on_mouse_movement, ctx);
+	mlx_hook(ctx->win, X11_BUTTONRELEASE, 0,
+			(int (*)())&on_mouse_released, ctx);
 }
 
 int				main(int ac, char **av)
 {
 	t_mlx_context	ctx;
+	t_mouse			mouse;
 	int				arg;
 
 	if (ac < 2)
@@ -83,6 +89,7 @@ int				main(int ac, char **av)
 		if (add_map_file(&ctx.maps, av[arg]) == FALSE)
 			quit_fdf(NULL, "fdf: could not read file!");
 	}
+	ctx.mouse = &mouse;
 	init_window(&ctx);
 	ctx.curr = ctx.maps->prev;
 	rotate_x(ctx.curr->base, to_rad(225.0));

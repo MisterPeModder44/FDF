@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 11:14:31 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 15:16:44 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 16:07:02 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define X11_BUTTON1MASK (1L << 8)
 # define X11_BUTTON2MASK (1L << 9)
 # define X11_STRUCTURENOTIFYMASK (1L << 17)
+# define X11_BUTTONRELEASE 5
 # define X11_MOTIONNOTIFY 6
 # define X11_DESTROYNOTIFY 17
 
@@ -39,18 +40,10 @@
 # define SCROLL_UP_KEY 4
 # define SCROLL_DOWN_KEY 5
 
-/*
-   typedef struct		s_key_status
-   {
-   int				mouse_x;
-   int				mouse_y;
-   int				mouse_button;
-   }					t_key_status;
-   */
-
-int			on_key_released(int key, t_mlx_context *ctx);
-int			on_close_window(t_mlx_context *ctx);
-int			on_mouse_pressed(int button, int x, int y, t_mlx_context *ctx);
-int			on_mouse_movement(int x, int y, t_mlx_context *ctx);
+int				on_key_released(int key, t_mlx_context *ctx);
+int				on_close_window(t_mlx_context *ctx);
+int				on_mouse_pressed(int button, int x, int y, t_mlx_context *ctx);
+int				on_mouse_released(int button, int x, int y, t_mlx_context *ctx);
+int				on_mouse_movement(int x, int y, t_mlx_context *ctx);
 
 #endif
