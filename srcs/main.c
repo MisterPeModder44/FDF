@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 16:06:47 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 17:13:46 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,12 @@ void			quit_fdf(t_mlx_context *ctx, const char *reason)
 	exit(reason != NULL);
 }
 
-void			printvec(t_vectab *vectab)
-{
-	uint32_t	ty;
-	uint32_t	tx;
-
-	ty = 0;
-	while (ty < vectab->height)
-	{
-		tx = 0;
-		while (tx < vectab->width)
-		{
-			printf("[%f, %f, %f]\n", *vectab->tab[ty][tx]->x,
-					*vectab->tab[ty][tx]->y, *vectab->tab[ty][tx]->z);
-			++tx;
-		}
-		++ty;
-	}
-}
-
 static void		init_window(t_mlx_context *ctx)
 {
 	ctx->screen_dist = 10.0f;
 	ctx->mlx = mlx_init();
-	ctx->width = 2568;
-	ctx->height = 1400;
+	ctx->width = 400;
+	ctx->height = 400;
 	ctx->win = mlx_new_window(ctx->mlx, ctx->width, ctx->height,
 			"- Fil De Fer -");
 	ctx->img = NULL;
@@ -93,7 +74,7 @@ int				main(int ac, char **av)
 	init_window(&ctx);
 	ctx.curr = ctx.maps->prev;
 	rotate_x(ctx.curr->base, to_rad(225.0));
-	translate(ctx.curr->base, 0, 0, 25);
+	translate(ctx.curr->base, 0, 0, ctx.curr->base->height * 2);
 	scale(ctx.curr->base, 100, 100, 1);
 	translate(ctx.curr->base, -(int)((ctx.curr->base->width - 1) * 100 / 2),
 			0, 0);

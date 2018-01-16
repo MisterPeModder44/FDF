@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 12:29:44 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 15:20:30 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 17:24:20 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static void	on_key_r1(int key, t_mlx_context *ctx)
 	if (key == ESC_KEY)
 		on_close_window(ctx);
 	else if (key == W_KEY)
-		translate(ctx->curr->base, 0, -1000, 0);
+		translate(ctx->curr->base, 0, -100 * ctx->screen_dist, 0);
 	else if (key == A_KEY)
-		translate(ctx->curr->base, -1000, 0, 0);
+		translate(ctx->curr->base, -100 * ctx->screen_dist, 0, 0);
 	else if (key == S_KEY)
-		translate(ctx->curr->base, 0, 1000, 0);
+		translate(ctx->curr->base, 0, 100 * ctx->screen_dist, 0);
 	else if (key == D_KEY)
-		translate(ctx->curr->base, 1000, 0, 0);
+		translate(ctx->curr->base, 100 * ctx->screen_dist, 0, 0);
 	else if (key == Z_KEY)
 		ctx->draw_diags = !ctx->draw_diags;
 }
@@ -45,9 +45,9 @@ int			on_key_released(int key, t_mlx_context *ctx)
 	else if (key == RIGHT_KEY)
 		rotate_y(ctx->curr->base, to_rad(90));
 	else if (key == PLUS_KEY)
-		translate(ctx->curr->base, 0, 0, -1);
+		translate(ctx->curr->base, 0, 0, -ctx->screen_dist);
 	else if (key == MINUS_KEY)
-		translate(ctx->curr->base, 0, 0, 1);
+		translate(ctx->curr->base, 0, 0, ctx->screen_dist);
 	else if (key == BRACKET_LEFT_KEY)
 		ctx->curr = ctx->curr->prev;
 	else if (key == BRACKET_RIGHT_KEY)
