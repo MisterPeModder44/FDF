@@ -35,21 +35,23 @@ SRCS = $(addprefix $(SRC_PATH)/, $(SRCS_NAMES))
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAMES))
 INCS = $(addprefix $(INC_PATH)/, $(INCS_NAMES))
 
+LIBFT := libft/libft.a
+MLX_PATH := minilibx_macos
+MLX = $(MLX_PATH)/libmlx.a
+LIBS := -lm -L$(MLX_PATH) -lmlx -Llibft -lft
+
 CC = gcc
 CFLAGS = --std=c99 -Wall -Werror -Wextra
 FRAMEWORKS = -framework OpenGL -framework AppKit
-CPPFLAGS = -I$(INC_PATH) -Ilibft/includes -I/usr/local/include
+CPPFLAGS = -I$(INC_PATH) -Ilibft/includes -I$(MLX_PATH)
 RM = rm -f
-
-LIBFT = libft/libft.a
-LIBS = -lm -L/usr/local/lib/ -lmlx -Llibft -lft
 
 NORM_LOG = norm.log
 NORM_FILES =
 
-all: $(NAME)
+all: $(LIBFT) $(MLX) $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(INCS)
+$(NAME): $(OBJS) $(INCS)
 	@tput dl; tput cub 100; printf "\033[90mCreating object files: \033[32mdone!"
 	@printf "\n\033[90mCompiling \033[0m$(NAME)\033[90m: \033[0m"
 	@$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LIBS) $(FRAMEWORKS)
@@ -57,6 +59,11 @@ $(NAME): $(LIBFT) $(OBJS) $(INCS)
 
 $(LIBFT):
 	@make -C libft VERBOSE=0
+
+$(MLX):
+	@printf "\033[90mCompiling \033[0m$(MLX)\033[90m: \033[0m"
+	@make -C $(MLX_PATH) &> /dev/null
+	@printf "\033[32mdone!\n\n"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -72,7 +79,8 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
-	@make -C libft fclean > /dev/null
+	@make -C libft fclean &> /dev/null
+	@make -C $(MLX_PATH) clean &> /dev/null
 	@printf "\033[33mRemoved \033[93m$(NAME) executable!\033[0m\n\n"
 
 re: fclean all
