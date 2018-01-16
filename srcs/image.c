@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:14:25 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 18:22:39 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,19 @@ static void			put_hints(t_mlx_context *ctx)
 	size_t			nlen;
 
 	nlen = ft_strlen(ctx->curr->name);
-	mlx_string_put(ctx->mlx, ctx->win, ctx->width - (nlen * 10), 0,
-			0x00FFFFFF, ctx->curr->name);
-	mlx_string_put(ctx->mlx, ctx->win, 0, 0, 0x00FFFFFF, "Press <esc> to quit");
+	mlx_string_put(ctx->mlx, ctx->win, ctx->width - (nlen * 10) - 2, 0,
+			0x0066AAAA, ctx->curr->name);
+	mlx_string_put(ctx->mlx, ctx->win, 0, 0, 0x00FFFFFF, "Use ");
+	mlx_string_put(ctx->mlx, ctx->win, 40, 0, 0x00CC9900, "Arrows, WASD or\
+			Mouse");
+	mlx_string_put(ctx->mlx, ctx->win, 250, 0, 0x00FFFFFF, " to move around");
+	mlx_string_put(ctx->mlx, ctx->win, 0, 18, 0x00FFFFFF, "Use ");
+	mlx_string_put(ctx->mlx, ctx->win, 40, 18, 0x00CC9900, "Mouse Wheel or +/-\
+			to zoom");
+	mlx_string_put(ctx->mlx, ctx->win, 300, 18, 0x00FFFFFF, " to zoom");
+	mlx_string_put(ctx->mlx, ctx->win, 0, 36, 0x00FFFFFF, "Press ");
+	mlx_string_put(ctx->mlx, ctx->win, 60, 36, 0x00CC9900, "ESC");
+	mlx_string_put(ctx->mlx, ctx->win, 90, 36, 0x00FFFFFF, " to quit");
 }
 
 void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab)

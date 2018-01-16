@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 12:29:44 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:53:04 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/16 18:12:23 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	on_key_r1(int key, t_mlx_context *ctx)
 {
 	if (key == ESC_KEY)
 		on_close_window(ctx);
-	else if (key == W_KEY)
+	else if (key == W_KEY || key == UP_KEY)
 		translate(ctx->curr->base, 0, -100 * ctx->screen_dist, 0);
-	else if (key == A_KEY)
+	else if (key == A_KEY || key == LEFT_KEY)
 		translate(ctx->curr->base, -100 * ctx->screen_dist, 0, 0);
-	else if (key == S_KEY)
+	else if (key == S_KEY || key == DOWN_KEY)
 		translate(ctx->curr->base, 0, 100 * ctx->screen_dist, 0);
-	else if (key == D_KEY)
+	else if (key == D_KEY || key == RIGHT_KEY)
 		translate(ctx->curr->base, 100 * ctx->screen_dist, 0, 0);
 	else if (key == Z_KEY)
 		ctx->draw_diags = !ctx->draw_diags;
@@ -35,15 +35,7 @@ static void	on_key_r1(int key, t_mlx_context *ctx)
 int			on_key_released(int key, t_mlx_context *ctx)
 {
 	on_key_r1(key, ctx);
-	if (key == UP_KEY)
-		rotate_x(ctx->curr->base, to_rad(-90));
-	else if (key == LEFT_KEY)
-		rotate_y(ctx->curr->base, to_rad(-90));
-	else if (key == DOWN_KEY)
-		rotate_x(ctx->curr->base, to_rad(90));
-	else if (key == RIGHT_KEY)
-		rotate_y(ctx->curr->base, to_rad(90));
-	else if (key == PLUS_KEY)
+	if (key == PLUS_KEY)
 		translate(ctx->curr->base, 0, 0, -ctx->screen_dist);
 	else if (key == MINUS_KEY)
 		translate(ctx->curr->base, 0, 0, ctx->screen_dist);
