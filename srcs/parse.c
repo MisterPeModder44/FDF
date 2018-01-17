@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 10:11:01 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:53:48 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/17 08:58:06 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,32 +80,16 @@ static t_list	*parse_fdf(int fd, int *line_size, int *lines)
 	return (lst);
 }
 
-static t_vectab	*convert_to_tab(t_list *list, int line_size, int lines)
+static void		free_veclst(t_list *list)
 {
-	t_vectab	*tab;
-	int			i;
-	int			j;
+	t_list	*tmp;
 
-	if (!(tab = (t_vectab *)malloc(sizeof(t_vectab))))
-		return (NULL);
-	tab->width = line_size;
-	tab->height = lines;
-	if (!(tab->tab = (t_vec3f ***)malloc(sizeof(t_vec3f **) * lines)))
-		return (NULL);
-	i = -1;
-	while (++i < lines)
+	while (list)
 	{
-		if (!(tab->tab[i] = (t_vec3f **)malloc(sizeof(t_vec3f *) *
-						line_size)))
-			return (NULL);
-		j = -1;
-		while (list && ++j < line_size)
-		{
-			tab->tab[i][j] = list->content;
-			list = list->next;
-		}
+		tmp = list->next;
+		free(list);
+		list = tmp;
 	}
-	return (tab);
 }
 
 t_vectab		*read_fdf_file(char *path)
@@ -122,10 +106,6 @@ t_vectab		*read_fdf_file(char *path)
 		return (NULL);
 	if (!(tab = convert_to_tab(list, line_size, lines)) || close(fd) == -1)
 		return (exit_parse(&list, NULL));
-	while (list)
-	{
-		free(list);
-		list = list->next;
-	}
+	free_veclst(list);
 	return (tab);
 }

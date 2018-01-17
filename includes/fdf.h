@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 16:28:32 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/17 08:56:39 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void				delete_vector_list(t_list **veclst);
 t_vectab			*new_vectab(uint32_t width, uint32_t height);
 void				vectab_copy(const t_vectab *src, t_vectab *dst);
 void				delete_vectab(t_vectab **vectab);
+t_vectab			*convert_to_tab(t_list *list, int line_size, int lines);
 
 #endif
