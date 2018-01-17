@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:08:50 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/17 07:37:47 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/17 08:21:47 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void			draw_links(t_image *img, t_vectab *tab, t_color *col,
 static void			put_hints(t_mlx_context *ctx)
 {
 	size_t			nlen;
+	int				offset;
 
 	nlen = ft_strlen(ctx->curr->name);
 	mlx_string_put(ctx->mlx, ctx->win, ctx->width - (nlen * 10) - 2, 0,
@@ -61,9 +62,17 @@ static void			put_hints(t_mlx_context *ctx)
 	mlx_string_put(ctx->mlx, ctx->win, 40, 18, 0x00CC9900, "Mouse Wheel or +/- \
 			to zoom");
 	mlx_string_put(ctx->mlx, ctx->win, 300, 18, 0x00FFFFFF, " to zoom");
-	mlx_string_put(ctx->mlx, ctx->win, 0, 36, 0x00FFFFFF, "Press ");
-	mlx_string_put(ctx->mlx, ctx->win, 60, 36, 0x00CC9900, "ESC");
-	mlx_string_put(ctx->mlx, ctx->win, 90, 36, 0x00FFFFFF, " to quit");
+	offset = ctx->curr == ctx->curr->next ? 0 : 18;
+	if (offset)
+	{
+		mlx_string_put(ctx->mlx, ctx->win, 0, 36, 0x00FFFFFF, "Use ");
+		mlx_string_put(ctx->mlx, ctx->win, 40, 36, 0x00CC9900, "[ or ]");
+		mlx_string_put(ctx->mlx, ctx->win, 100, 36, 0x00FFFFFF, " to change \
+				map");
+	}
+	mlx_string_put(ctx->mlx, ctx->win, 0, 36 + offset, 0x00FFFFFF, "Press ");
+	mlx_string_put(ctx->mlx, ctx->win, 60, 36 + offset, 0x00CC9900, "ESC");
+	mlx_string_put(ctx->mlx, ctx->win, 90, 36 + offset, 0x00FFFFFF, " to quit");
 }
 
 void				put_fdf_render(t_mlx_context *ctx, t_vectab *tab)
