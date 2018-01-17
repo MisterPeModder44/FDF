@@ -6,7 +6,7 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 15:19:45 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/17 08:56:39 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/17 10:05:26 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ typedef enum		e_bool
 	FALSE = 0,
 	TRUE = 1,
 }					t_bool;
+
+typedef enum		e_arg_flag
+{
+	NO_ARGS = 0,
+	PARSING = 1,
+	PWIDTH = 2,
+	HAS_MAP = 4
+}					t_arg_flag;
 
 typedef struct		s_vectab
 {
@@ -70,5 +78,7 @@ t_vectab			*new_vectab(uint32_t width, uint32_t height);
 void				vectab_copy(const t_vectab *src, t_vectab *dst);
 void				delete_vectab(t_vectab **vectab);
 t_vectab			*convert_to_tab(t_list *list, int line_size, int lines);
+
+void				parse_arg(t_mlx_context *ctx, char *arg, int *mode);
 
 #endif

@@ -4,7 +4,8 @@ SRC_PATH := srcs
 OBJ_PATH := bin
 INC_PATH := includes
 
-SRCS_NAMES =	colors.c		\
+SRCS_NAMES =	args.c			\
+				colors.c		\
 				events.c		\
 				image.c			\
 				keys.c			\

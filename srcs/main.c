@@ -6,17 +6,16 @@
 /*   By: yguaye <yguaye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:21:03 by yguaye            #+#    #+#             */
-/*   Updated: 2018/01/16 17:53:33 by yguaye           ###   ########.fr       */
+/*   Updated: 2018/01/17 10:10:15 by yguaye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <mlx.h>
 #include <stdlib.h>
-#include <libft_base/base.h>
+#include <libft_base/io.h>
 #include <libft_math/vectors.h>
 #include "fdf.h"
-#include "maps.h"
 #include "transform.h"
 #include "events.h"
 #include "utils.h"
@@ -36,8 +35,10 @@ static void		init_window(t_mlx_context *ctx)
 {
 	ctx->screen_dist = 10.0f;
 	ctx->mlx = mlx_init();
-	ctx->width = 800;
-	ctx->height = 800;
+	if (!ctx->width)
+		ctx->width = 800;
+	if (!ctx->height)
+		ctx->height = 800;
 	ctx->win = mlx_new_window(ctx->mlx, ctx->width, ctx->height,
 			"- Fil De Fer -");
 	ctx->img = NULL;
@@ -60,15 +61,18 @@ int				main(int ac, char **av)
 	t_mlx_context	ctx;
 	t_mouse			mouse;
 	int				arg;
+	int				mode;
 
 	if (ac < 2)
 		quit_fdf(NULL, "fdf: too few arguments!");
 	arg = 0;
+	mode = NO_ARGS;
+	ctx.width = 0;
+	ctx.height = 0;
 	while (++arg < ac)
-	{
-		if (add_map_file(&ctx.maps, av[arg]) == FALSE)
-			quit_fdf(NULL, "fdf: could not read file!");
-	}
+		parse_arg(&ctx, av[arg], &mode);
+	if (!(mode & HAS_MAP))
+		quit_fdf(NULL, "fdf: no map to be loaded!");
 	ctx.mouse = &mouse;
 	init_window(&ctx);
 	ctx.curr = ctx.maps->prev;
